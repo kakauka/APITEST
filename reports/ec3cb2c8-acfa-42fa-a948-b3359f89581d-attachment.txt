@@ -1,0 +1,1 @@
+{'status_code': 400, 'errors': {'notifications_enabled': ['Must be a valid boolean.']}}

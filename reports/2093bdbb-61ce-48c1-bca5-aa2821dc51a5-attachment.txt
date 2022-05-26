@@ -1,0 +1,1 @@
+{'status_code': 400, 'errors': {'birth_date': ["The year of birth can't be less than 1900"]}}

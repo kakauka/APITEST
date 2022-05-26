@@ -1,0 +1,1 @@
+{'id': 1, 'name': 'Сергей', 'email': 'test001@mail.com', 'phone': None, 'kinship': 'father', 'notifications_enabled': True, 'language': 'EN', 'user': 1}

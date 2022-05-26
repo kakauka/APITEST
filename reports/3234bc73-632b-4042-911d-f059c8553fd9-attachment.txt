@@ -1,0 +1,1 @@
+{'status_code': 400, 'errors': {'non_field_errors': ['Phone or email required']}}
