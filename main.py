@@ -20,7 +20,8 @@ def test_Children_сreate_valid(): #Создание ребенка с вали�
                              headers=utils.header,
                              json={'name': 'Test',
                                    'birth_date':'2022-03-24',
-                                   'sex': 'male'})
+                                   'sex': 'male',
+                                   "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 201, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -36,7 +37,8 @@ def test_children_create_novalid_name(): #Создание ребенка с н�
                              headers=utils.header,
                              json={'name': '   ',
                                    'birth_date': '2022-03-24',
-                                   'sex': 'male'})
+                                   'sex': 'male',
+                                   "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -53,7 +55,8 @@ def test_children_create_notvalid_nameT2(): #Создание ребенка с 
                              headers=utils.header,
                              json={'name': ' %5Bac9^&* )',
                                    'birth_date': '2022-03-24',
-                                   'sex': 'male'})
+                                   'sex': 'male',
+                                   "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -70,7 +73,8 @@ def test_children_create_novalid_birth_date():#Создание ребенка �
                              headers=utils.header,
                              json={'name': 'Test',
                                    'birth_date': '',
-                                   'sex': 'male'})
+                                   'sex': 'male',
+                                   "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -87,7 +91,8 @@ def test_children_create_novalid_birth_dateT2(): #Создание ребенк�
                                  headers=utils.header,
                                  json={'name': 'Test',
                                        'birth_date': '0111-10-11',
-                                       'sex': 'male'})
+                                       'sex': 'male',
+                                       "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -111,7 +116,8 @@ def test_children_create_novalid_sex(): #Создание ребенка с не
                              headers=utils.header,
                              json={'name': 'Test',
                                    'birth_date': '2022-04-05',
-                                   'sex': ''})
+                                   'sex': '',
+                                   "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -128,7 +134,8 @@ def test_children_create_novalid_sexT2(): #Создание ребенка с н
                                  headers=utils.header,
                                  json={'name': 'Test',
                                        'birth_date': '2022-04-05',
-                                       'sex': 'xaxa'})
+                                       'sex': 'xaxa',
+                                       "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -145,12 +152,29 @@ def test_children_create_novalid_empty(): #Создание ребенка с н
                              headers=utils.header,
                              json={'name': '',
                                    'birth_date': '',
-                                   'sex': ''})
+                                   'sex': '',
+                                   "kinship": ""})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
-        assert response.json() == {'status_code': 400, 'errors': {'name': ['This field may not be blank.'], 'birth_date': ['Date has wrong format. Use one of these formats instead: YYYY-MM-DD.'], 'sex': ['"" is not a valid choice.']}}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
+        assert response.json() == {
+    "status_code": 400,
+    "errors": {
+        "name": [
+            "This field may not be blank."
+        ],
+        "birth_date": [
+            "Date has wrong format. Use one of these formats instead: YYYY-MM-DD."
+        ],
+        "sex": [
+            "\"\" is not a valid choice."
+        ],
+        "kinship": [
+            "\"\" is not a valid choice."
+        ]
+    }
+}
+    with allure.step(f"Посмотрим что получили \n {response.json()}"):
             print(str(response.json()))
 
 @allure.feature("Получение списка детей")
@@ -175,7 +199,8 @@ def test_children_update_novalid_name():  # update ребенка с невал�
                                  headers=utils.header,
                                  json={'name': ' T%!@&% 1S)S ',
                                        'birth_date': '2022-02-11',
-                                       'sex': 'male'})
+                                       'sex': 'male',
+                                       "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -192,7 +217,8 @@ def test_children_update_novalid_nameT2():  # update ребенка с нева�
                                     headers=utils.header,
                                     json={'name': '    ',
                                           'birth_date': '2022-02-11',
-                                          'sex': 'male'})
+                                          'sex': 'male',
+                                       "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -209,7 +235,8 @@ def test_children_update_novalid_bith_date():  # update ребенка с нев
                             headers=utils.header,
                             json={'name': 'UpdateTest',
                                   'birth_date': '0111-10-11',
-                                  'sex': 'male'})
+                                  'sex': 'male',
+                                       "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -226,7 +253,8 @@ def test_children_update_novalid_bith_dateT2():  # update ребенка с не
                             headers=utils.header,
                             json={'name': 'UpdateTest',
                                   'birth_date': '',
-                                  'sex': 'male'})
+                                  'sex': 'male',
+                                       "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -243,7 +271,8 @@ def test_children_update_novalid_sex():  # update ребенка с невали
                             headers=utils.header,
                             json={'name': 'UpdateTest',
                                   'birth_date': '',
-                                  'sex': 'xaxa'})
+                                  'sex': 'xaxa',
+                                       "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -260,7 +289,8 @@ def test_children_update_novalid_sexT2():  # update ребенка с невал
                             headers=utils.header,
                             json={'name': 'UpdateTest',
                                   'birth_date': '',
-                                  'sex': ''})
+                                  'sex': '',
+                                  "kinship": "father"})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -277,47 +307,8 @@ def test_children_update_novalid_empty():  # update ребенка с невал
                             headers=utils.header,
                             json={'name': '',
                                   'birth_date': '',
-                                  'sex': ''})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {'status_code': 400, 'errors': {'name': ['This field may not be blank.'], 'birth_date': ['Date has wrong format. Use one of these formats instead: YYYY-MM-DD.'], 'sex': ['"" is not a valid choice.']}}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_name():  # создание профиля с невалидными данными, некорректное имя
-    """
-        создание профиля с невалидными данными, некорректное имя
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': ' $@%!*@% ',
-                                  'email': 'test@gmail.com',
-                                  'phone': '+79150361122',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {'status_code': 400, 'errors': {'name': ['Invalid name']}}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_nameT2():  # создание профиля с невалидными данными, некорректное имя(пустое)
-    """
-        создание профиля с невалидными данными, некорректное имя(пустое)
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': '',
-                                  'email': 'test@gmail.com',
-                                  'phone': '+79150361122',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
+                                  'sex': '',
+                                  "kinship": ""})
     with allure.step(f'Status code {response.status_code}'):
         assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
     with allure.step("Запрос отправлен"):
@@ -326,256 +317,14 @@ def test_profile_create_novalid_nameT2():  # создание профиля с 
     "errors": {
         "name": [
             "This field may not be blank."
-        ]
-    }
-}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_email():  # создание профиля с невалидными данными, некорректный email
-    """
-        создание профиля с невалидными данными, некорректный email
-    """
-
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': ' tS2#$%^&*est@gm@*)ail.com',
-                                  'phone': '+79150361122',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {
-    "status_code": 400,
-    "errors": {
-        "email": [
-            "Invalid email"
-        ]
-    }
-}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_phone():  # создание профиля с невалидными данными, некорректный телефон
-    """
-        создание профиля с невалидными данными, некорректный телефон
-    """
-
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': '',
-                                  'phone': '79150361122',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {'status_code': 400, 'errors': {'phone': ['The phone number entered is not valid.']}}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_phoneT2():  # создание профиля с невалидными данными, некорректный телефон
-    """
-        создание профиля с невалидными данными, некорректный телефон
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': '',
-                                  'phone': '9150361122',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {'status_code': 400, 'errors': {'phone': ['The phone number entered is not valid.']}}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_phoneT3():  # создание профиля с невалидными данными, некорректный телефон
-    """
-        создание профиля с невалидными данными, некорректный телефон
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': '',
-                                  'phone': '791503611225',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {'status_code': 400, 'errors': {'phone': ['The phone number entered is not valid.']}}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_phoneT4():  # создание профиля с невалидными данными, некорректный телефон(пустой)
-    """
-        создание профиля с невалидными данными, некорректный телефон(пустой)
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': '',
-                                  'phone': '',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {'status_code': 400, 'errors': {'non_field_errors': ['Phone or email required']}}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_kinship():  # создание профиля с невалидными данными, некорректный kinship
-    """
-       создание профиля с невалидными данными, некорректный kinship
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': 'test@mail.com',
-                                  'phone': '791503611225',
-                                  'kinship': 'bro',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {'status_code': 400, 'errors': {'phone': ['The phone number entered is not valid.'], 'kinship': ['"bro" is not a valid choice.']}}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_kinshipT2():  # создание профиля с невалидными данными, некорректный телефон и  kinship(пустой)
-    """
-       создание профиля с невалидными данными, некорректный телефон и  kinship(пустой)
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': 'test@mail.com',
-                                  'phone': '791503611225',
-                                  'kinship': '',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {'status_code': 400, 'errors': {'phone': ['The phone number entered is not valid.'], 'kinship': ['"" is not a valid choice.']}}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_notifications():  # создание профиля с невалидными данными, некорректный notifications
-    """
-       создание профиля с невалидными данными,  некорректный телефон и notifications
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': 'test@mail.com',
-                                  'phone': '791503611225',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'tr',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {'status_code': 400, 'errors': {'phone': ['The phone number entered is not valid.'], 'notifications_enabled': ['Must be a valid boolean.']}}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_notificationsT2():  # создание профиля с невалидными данными, некорректный notifications (пустой)
-    """
-       создание профиля с невалидными данными, некорректный notifications (пустой)
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': 'test@mail.com',
-                                  'phone': '+79150364455',
-                                  'kinship': 'father',
-                                  'notifications_enabled': '',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {
-    "status_code": 400,
-    "errors": {
-        "notifications_enabled": [
-            "Must be a valid boolean."
-        ]
-    }
-}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_language():  # создание профиля с невалидными данными, некорректный язык
-    """
-       создание профиля с невалидными данными, некорректный язык
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': 'test@mail.com',
-                                  'phone': '+79150364455',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'true',
-                                  'language': 'CN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {
-    "status_code": 400,
-    "errors": {
-        "language": [
-            "\"CN\" is not a valid choice."
-        ]
-    }
-}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
-
-@allure.feature("Создание профиля с невалидными данными")
-def test_profile_create_novalid_languageT2():  # создание профиля с невалидными данными, некорректный язык (пустой)
-    """
-       создание профиля с невалидными данными, некорректный язык (пустой)
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': 'test@mail.com',
-                                  'phone': '+79150361157',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'true',
-                                  'language': ''})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {
-    "status_code": 400,
-    "errors": {
-        "language": [
+        ],
+        "birth_date": [
+            "Date has wrong format. Use one of these formats instead: YYYY-MM-DD."
+        ],
+        "sex": [
+            "\"\" is not a valid choice."
+        ],
+        "kinship": [
             "\"\" is not a valid choice."
         ]
     }
@@ -583,25 +332,6 @@ def test_profile_create_novalid_languageT2():  # создание профиля
         with allure.step(f"Посмотрим что получили \n {response.json()}"):
             print(str(response.json()))
 
-@allure.feature("Создание профиля с валидными данными")
-def test_profile_create_valid():  # создание профиля с валидными данными
-    """
-       создание профиля с валидными данными
-    """
-    response = requests.post(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': 'test@mail.com',
-                                  'phone': '+79150361127',
-                                  'kinship': 'father',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 200, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json()['name'] == 'Сергей'
-        with allure.step(f"Проверка что создали с именем Сергей =  \n {response.json()['name']}"):
-            print(str(response.json()['name']))
 
 @allure.feature("Изменение профиля с невалидными данными")
 def test_profile_change_novalid_name():  #  изменение профиля с невалидными данными, некорректное имя
@@ -613,7 +343,6 @@ def test_profile_change_novalid_name():  #  изменение профиля с
                             json={'name': ' $@%!*@% ',
                                   'email': 'test@mail.com',
                                   'phone': '+79151112233',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -633,7 +362,6 @@ def test_profile_change_novalid_nameT2():  # изменение профиля �
                             json={'name': '',
                                   'email': 'test@gmail.com',
                                   'phone': '+79150361122',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -653,7 +381,6 @@ def test_profile_change_novalid_email():  # изменение профиля с
                             json={'name': 'Сергей',
                                   'email': ' tS2#$%^&*est@gm@*)ail.com',
                                   'phone': '+79150361122',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -680,7 +407,6 @@ def test_profile_change_novalid_phone():  # изменение профиля с
                             json={'name': 'Сергей',
                                   'email': 'test001@mail.com',
                                   'phone': '79150361122',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -701,7 +427,6 @@ def test_profile_change_novalid_phoneT2():  # изменение профиля 
                             json={'name': 'Сергей',
                                   'email': 'test001@mail.com',
                                   'phone': '9150361122',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -721,7 +446,6 @@ def test_profile_change_novalid_phoneT3():  # изменение профиля 
                             json={'name': 'Сергей',
                                   'email': 'test001@mail.com',
                                   'phone': '791503611225',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -733,59 +457,7 @@ def test_profile_change_novalid_phoneT3():  # изменение профиля 
 
 
 
-@allure.feature("Изменение профиля с невалидными данными")
-def test_profile_change_novalid_kinship():  # изменение профиля с невалидными данными, некорректный kinship
-    """
-     изменение профиля с невалидными данными, некорректный kinship
-    """
-    response = requests.patch(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': 'test@mail.com',
-                                  'phone': '+79150361127',
-                                  'kinship': 'bro',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {
-    "status_code": 400,
-    "errors": {
-        "kinship": [
-            "\"bro\" is not a valid choice."
-        ]
-    }
-}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
 
-@allure.feature("Изменение профиля с невалидными данными")
-def test_profile_change_novalid_kinshipT2():  # изменение профиля с невалидными данными, некорректный kinship (пустой)
-    """
-     изменение профиля с невалидными данными, некорректный kinship (пустой)
-    """
-    response = requests.patch(utils.urlProfileCreate,
-                            headers=utils.header,
-                            json={'name': 'Сергей',
-                                  'email': 'test@mail.com',
-                                  'phone': '+79150361127',
-                                  'kinship': '',
-                                  'notifications_enabled': 'true',
-                                  'language': 'EN'})
-    with allure.step(f'Status code {response.status_code}'):
-        assert response.status_code == 400, f"Неверный код ответа, получен {response.status_code}"
-    with allure.step("Запрос отправлен"):
-        assert response.json() == {
-    "status_code": 400,
-    "errors": {
-        "kinship": [
-            "\"\" is not a valid choice."
-        ]
-    }
-}
-        with allure.step(f"Посмотрим что получили \n {response.json()}"):
-            print(str(response.json()))
 
 @allure.feature("Изменение профиля с невалидными данными")
 def test_profile_change_novalid_notifications():  # изменение профиля с невалидными данными, некорректный notifications и номер телефона
@@ -797,7 +469,6 @@ def test_profile_change_novalid_notifications():  # изменение проф�
                             json={'name': 'Сергей',
                                   'email': 'test@mail.com',
                                   'phone': '791503611225',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'tr',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -817,7 +488,6 @@ def test_profile_change_novalid_notificationsT2():  # изменение про�
                             json={'name': 'Сергей',
                                   'email': 'test@mail.com',
                                   'phone': '+79150361127',
-                                  'kinship': 'father',
                                   'notifications_enabled': '',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -844,7 +514,6 @@ def test_profile_change_novalid_language():  # изменение профиля
                             json={'name': 'Сергей',
                                   'email': 'test@mail.com',
                                   'phone': '+79150361127',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'CN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -871,7 +540,6 @@ def test_profile_change_novalid_languageT2():  # изменение профил
                             json={'name': 'Сергей',
                                   'email': 'test@mail.com',
                                   'phone': '+79150361127',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': ''})
     with allure.step(f'Status code {response.status_code}'):
@@ -899,7 +567,6 @@ def test_profile_change_novalid_phone_and_mail():  # изменение проф
                             json={'name': 'Сергей',
                                   'email': '',
                                   'phone': '',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -924,7 +591,6 @@ def test_profile_change_valid_phone():  # изменение профиля с �
                             json={'name': 'Сергей',
                                   'email': 'test001@mail.com',
                                   'phone': '',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -944,7 +610,6 @@ def test_profile_change_valid_email():  # изменение профиля с �
                             json={'name': 'Сергей',
                                   'email': '',
                                   'phone': '+79150361127',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -964,7 +629,6 @@ def test_profile_change_valid_all():  # изменение профиля с в�
                             json={'name': 'Сергей',
                                   'email': 'test@mail.com',
                                   'phone': '+79150361127',
-                                  'kinship': 'father',
                                   'notifications_enabled': 'true',
                                   'language': 'EN'})
     with allure.step(f'Status code {response.status_code}'):
@@ -997,6 +661,20 @@ def test_maissions_list(): #Получение списка c Missions
     with allure.step("Запрос отправлен"):
         with allure.step(f"Возможно есть данные:  \n {response.json()['results']}"):
             print(str(response.json()))
+
+
+@allure.feature("Получение списка c Character-clothes")
+def test_character_clothes_list(): #Получение списка c Character-clothes
+    """
+        Получение списка c character-Clothes
+    """
+    response = requests.get(utils.urlCharacterclothesList, headers=utils.header)
+    with allure.step(f'Status code {response.status_code}'):
+        assert response.status_code == 200, f"Неверный код ответа, получен {response.status_code}"
+    with allure.step("Запрос отправлен"):
+        with allure.step(f"Возможно есть данные:  \n {response.json()['results']}"):
+            print(str(response.json()))
+
 
 @allure.feature("Генерация телеграм кода")
 def test_get_generation_code(): #Генерация телеграмм кода

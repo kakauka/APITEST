@@ -12,6 +12,7 @@ urlChildrenUpdate = "https://sandbox.1-gadget.com/api/v1/children/1/"
 urlProfileCreate = "https://sandbox.1-gadget.com/api/v1/profiles/me/"
 urlMainGoalList = "https://sandbox.1-gadget.com/api/v1/main-goals/"
 urlMissionsList = "https://sandbox.1-gadget.com/api/v1/missions/"
+urlCharacterclothesList = "https://sandbox.1-gadget.com/api/v1/child-character-clothes/"
 urlTelegramGenerete = "https://sandbox.1-gadget.com/api/v1/telegram/generate-code/"
 urlTelegramMe = "https://sandbox.1-gadget.com/api/v1/telegram/me/"
 api_id = 16086290
