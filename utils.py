@@ -15,9 +15,12 @@ urlMissionsList = "https://sandbox.1-gadget.com/api/v1/missions/"
 urlCharacterclothesList = "https://sandbox.1-gadget.com/api/v1/child-character-clothes/"
 urlTelegramGenerete = "https://sandbox.1-gadget.com/api/v1/telegram/generate-code/"
 urlTelegramMe = "https://sandbox.1-gadget.com/api/v1/telegram/me/"
-api_id = 16086290
-api_hash = '1a497b918232ca670bbfa7d12fdee7da'
+api_id = 15596434
+api_hash = 'de90c7ad11257d493fcb36b5a05f3309'
 client = TelegramClient('anon', api_id, api_hash)
+
+
 
 def mains(user,message):
     return client.send_message(user,message)
+
