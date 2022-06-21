@@ -7,10 +7,6 @@ import pytest_asyncio
 import utils
 
 
-
-
-
-
 @allure.feature('Создание детей с валидными данными')
 def test_Children_сreate_valid(): #Создание ребенка с валидными данными
     """
@@ -731,8 +727,8 @@ def test_check_succes_profile_telegram(): #Проверка подтвержде
         assert response.status_code == 200, f"Неверный код ответа, получен {response.status_code}"
     with allure.step(f"Запрос отправлен, профиль подтвержден:  \n {response.json()}"):
         assert response.json() == {
-	"id": 1031876959,
-	"username": "Prydz"
+	"id": 5586326845,
+	"username": "FirstGadget"
 }
         print(str(response.json()))
 
